@@ -1,5 +1,6 @@
 package com.romero.turnos.service;
 
+import com.romero.turnos.exception.TurnoNotFoundException;
 import com.romero.turnos.model.Turno;
 import com.romero.turnos.repository.TurnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,13 @@ public class TurnoService {
     }
 
     public Turno obtenerPorId(Long id) {
-        return turnoRepository.findById(id).orElse(null);
+    return turnoRepository.findById(id)
+            .orElseThrow(()-> new TurnoNotFoundException(id));
     }
 
     public Turno actualizar(Long id, Turno turnoNuevo) {
-        Turno turnoExistente = turnoRepository.findById(id).orElse(null);
-        if (turnoExistente == null) {
-            return null;
-        }
+        Turno turnoExistente = turnoRepository.findById(id)
+                .orElseThrow(()-> new TurnoNotFoundException(id));
         turnoExistente.setFecha(turnoNuevo.getFecha());
         turnoExistente.setHorario(turnoNuevo.getHorario());
         turnoExistente.setNombreCliente(turnoNuevo.getNombreCliente());

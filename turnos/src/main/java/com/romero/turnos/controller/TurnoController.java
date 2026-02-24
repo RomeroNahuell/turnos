@@ -28,11 +28,7 @@ public class TurnoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Turno> actualizar(@PathVariable Long id, @Valid @RequestBody Turno turno) {
-        Turno turnoActualizado = turnoService.actualizar(id, turno);
-        if (turnoActualizado == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(turnoActualizado);
+        return ResponseEntity.ok(turnoService.actualizar(id, turno));
     }
 
     @DeleteMapping("/{id}")
@@ -42,11 +38,7 @@ public class TurnoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Turno> obtenerPorId(@PathVariable Long id) {
-        Turno turno = turnoService.obtenerPorId(id);
-        if (turno == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(turno);
+        return ResponseEntity.ok(turnoService.obtenerPorId(id));
     }
 
 
