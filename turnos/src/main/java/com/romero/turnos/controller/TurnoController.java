@@ -3,6 +3,7 @@ package com.romero.turnos.controller;
 import com.romero.turnos.model.Turno;
 import com.romero.turnos.service.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +26,12 @@ public class TurnoController {
     }
 
     @PutMapping("/{id}")
-    public Turno actualizar(@PathVariable Long id, @RequestBody Turno turno) {
-        return turnoService.actualizar(id, turno);
+    public ResponseEntity<Turno> actualizar(@PathVariable Long id, @RequestBody Turno turno) {
+        Turno turnoActualizado = turnoService.actualizar(id, turno);
+        if (turnoActualizado == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(turnoActualizado);
     }
 
     @DeleteMapping("/{id}")
@@ -35,8 +40,12 @@ public class TurnoController {
     }
 
     @GetMapping("/{id}")
-    public Turno obtenerPorId(@PathVariable Long id) {
-        return turnoService.obtenerPorId(id);
+    public ResponseEntity<Turno> obtenerPorId(@PathVariable Long id) {
+        Turno turno = turnoService.obtenerPorId(id);
+        if (turno == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(turno);
     }
 
 
