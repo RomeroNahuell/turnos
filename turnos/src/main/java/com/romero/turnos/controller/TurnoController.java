@@ -2,6 +2,7 @@ package com.romero.turnos.controller;
 
 import com.romero.turnos.model.Turno;
 import com.romero.turnos.service.TurnoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +22,12 @@ public class TurnoController {
     }
 
     @PostMapping
-    public Turno guardar(@RequestBody Turno turno) { //significa que el turno viene en el cuerpo de la petición.
+    public Turno guardar(@Valid @RequestBody Turno turno) { //significa que el turno viene en el cuerpo de la petición.
         return turnoService.guardar(turno);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Turno> actualizar(@PathVariable Long id, @RequestBody Turno turno) {
+    public ResponseEntity<Turno> actualizar(@PathVariable Long id, @Valid @RequestBody Turno turno) {
         Turno turnoActualizado = turnoService.actualizar(id, turno);
         if (turnoActualizado == null) {
             return ResponseEntity.notFound().build();

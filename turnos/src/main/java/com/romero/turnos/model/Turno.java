@@ -1,6 +1,10 @@
 package com.romero.turnos.model;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import jakarta.persistence.*;
+
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,10 +16,15 @@ public class Turno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)// hace que el id se genere automáticamente.
     private Long id;
 
+    @NotNull(message = "La fecha es obligatoria.")
     private LocalDate fecha;
+    @NotNull(message = "El horario es obligatorio.")
     private LocalTime horario;
+    @NotBlank(message = "El nombre del cliente es obligatorio.")
     private String nombreCliente;
+    @NotBlank(message = "El estado del turno es obligatorio.")
     private String estado;
+    @NotBlank(message = "El especialista es obligatorio.")
     private String especialista;
 
     public Long getId() {
@@ -41,6 +50,7 @@ public class Turno {
     public void setHorario(LocalTime horario) {
         this.horario = horario;
     }
+
 
     public String getNombreCliente() {
         return nombreCliente;
