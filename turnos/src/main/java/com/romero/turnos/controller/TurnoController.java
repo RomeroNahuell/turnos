@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController //le dice a Spring que esta clase recibe y responde peticiones HTTP.
@@ -39,6 +40,11 @@ public class TurnoController {
     @GetMapping("/{id}")
     public ResponseEntity<Turno> obtenerPorId(@PathVariable Long id) {
         return ResponseEntity.ok(turnoService.obtenerPorId(id));
+    }
+
+    @GetMapping("/buscar")
+    public List<Turno> buscarPorFecha(@RequestParam LocalDate fecha) { //En lugar de recibir el dato de la URL como /turnos/1, lo recibe como parámetro de consulta, así: /turnos/buscar?fecha=2025-03-15
+        return turnoService.buscarPorFecha(fecha);
     }
 
 

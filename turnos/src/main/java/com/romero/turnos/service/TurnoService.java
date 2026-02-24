@@ -6,6 +6,7 @@ import com.romero.turnos.repository.TurnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service // le dice a Spring que esta clase es un servicio y la registra automáticamente.
@@ -40,5 +41,9 @@ public class TurnoService {
         turnoExistente.setEstado(turnoNuevo.getEstado());
         turnoExistente.setEspecialista(turnoNuevo.getEspecialista());
         return turnoRepository.save(turnoExistente);
+    }
+
+    public List<Turno> buscarPorFecha(LocalDate fecha) {
+        return turnoRepository.findByFecha(fecha);
     }
 }
